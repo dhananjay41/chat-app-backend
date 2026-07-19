@@ -31,18 +31,13 @@ This is the backend server for ChatApp, built with Node.js, Express, and Socket.
 
 ### Installation
 
-1. Navigate to the server directory:
-   ```bash
-   cd server
-   ```
-
-2. Install dependencies:
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Configure Environment Variables:
-   Create a `.env` file in the root of the server directory with the following keys:
+2. Configure Environment Variables:
+   Create a `.env` file in the root directory with the following keys:
    ```env
    PORT=4000
    MONGODB_URI=your_mongodb_connection_string
@@ -53,12 +48,12 @@ This is the backend server for ChatApp, built with Node.js, Express, and Socket.
    CLIENT_URL=http://localhost:3000
    ```
 
-4. (Optional) Seed the database with demo users:
+3. (Optional) Seed the database with demo users:
    ```bash
    npm run seed
    ```
 
-5. Run the development server:
+4. Run the development server:
    ```bash
    npm run dev
    ```
