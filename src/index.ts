@@ -15,7 +15,8 @@ const app = express();
 const httpServer = createServer(app);
 
 // --- CORS allow-list (§5 Security: strict CORS allow-list) ---
-const ALLOWED_ORIGINS = (process.env.CORS_ORIGINS ?? 'http://localhost:3000').split(',');
+const envOrigins = process.env.CORS_ORIGINS ?? 'http://localhost:3000';
+const ALLOWED_ORIGINS = envOrigins === '*' ? true : envOrigins.split(',');
 
 // --- Socket.IO server on /chat namespace (§2.1: one namespace) ---
 const io = new SocketIOServer(httpServer, {
