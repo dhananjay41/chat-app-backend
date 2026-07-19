@@ -61,9 +61,7 @@ async function run() {
   const [alice, bob, charlie, diana] = createdUsers;
 
 
-  createdUsers.forEach((u) => {
 
-  });
 
   // --- Helper to create a DM conversation ---
   const createConv = async (
