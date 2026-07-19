@@ -38,7 +38,7 @@ const seedUsers = [
 
 async function run() {
   await mongoose.connect(MONGODB_URI!);
-  console.log('✓ Connected to MongoDB');
+
 
   // --- Wipe existing data (dev-only cluster confirmed) ---
   await Message.deleteMany({});
@@ -48,7 +48,7 @@ async function run() {
   // Drop the old email index if it exists, since we removed email from the schema
   await mongoose.connection.collection('users').dropIndex('email_1').catch(() => {});
   
-  console.log('✓ Cleared existing users, conversations, messages and removed old index');
+
 
   // --- Create users ---
   const createdUsers = await User.insertMany(
@@ -60,9 +60,9 @@ async function run() {
 
   const [alice, bob, charlie, diana] = createdUsers;
 
-  console.log('\n✓ Created users:');
+
   createdUsers.forEach((u) => {
-    console.log(`  ${u.displayName} (${u.username}) — id: ${u._id}`);
+
   });
 
   // --- Helper to create a DM conversation ---
@@ -102,22 +102,22 @@ async function run() {
     { sender: alice, body: "Sure, I'll forward the link in a sec. Also — want to test the media upload together?", minutesAgo: 100 },
     { sender: bob, body: "Absolutely! Let's do it. Drop me the file here.", minutesAgo: 90 },
   ]);
-  console.log('\n✓ Created conversation: Alice ↔ Bob');
+
 
   // --- Alice ↔ Charlie (2 messages) ---
   await createConv(alice, charlie, [
     { sender: charlie, body: 'Alice, I forwarded that document to you. Did you receive it?', minutesAgo: 60 },
     { sender: alice, body: 'Yes got it, thanks! Forwarding to Diana now.', minutesAgo: 55 },
   ]);
-  console.log('✓ Created conversation: Alice ↔ Charlie');
+
 
   // --- Bob ↔ Diana (1 message) ---
   await createConv(bob, diana, [
     { sender: diana, body: 'Bob, quick question about the socket auth setup — can we hop on a call?', minutesAgo: 30 },
   ]);
-  console.log('✓ Created conversation: Bob ↔ Diana');
 
-  console.log('\n🌱 Seed complete! Start the server and open two browser tabs to test.\n');
+
+
   await mongoose.disconnect();
   process.exit(0);
 }
