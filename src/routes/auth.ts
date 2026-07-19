@@ -41,7 +41,7 @@ const setRefreshTokenCookie = (res: Response, token: string): void => {
   res.cookie('refreshToken', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict', // §5: CSRF mitigation
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };
@@ -150,7 +150,11 @@ router.post('/refresh', async (req: Request, res: Response): Promise<void> => {
  * Clears the refresh token cookie.
  */
 router.post('/logout', (_req: Request, res: Response) => {
-  res.clearCookie('refreshToken');
+  res.clearCookie('refreshToken', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+  });
   res.json({ success: true });
 });
 
