@@ -12,6 +12,7 @@ import { initChatNamespace } from './sockets/chatNamespace';
 import mongoose from 'mongoose';
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy (required for Render/Heroku)
 const httpServer = createServer(app);
 
 // --- CORS allow-list (§5 Security: strict CORS allow-list) ---
